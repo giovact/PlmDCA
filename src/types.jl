@@ -10,6 +10,9 @@ struct PlmOut
     Jtensor::Array{Float64,4}
     htensor::Array{Float64,2}
     score::Array{Tuple{Int, Int, Float64},1}  
+    Jmat::Array{Float64,2}
+    Jtensor1::Array{Float64,4}
+    Jtensor2::Array{Float64,4}
 end
 
 struct PlmVar
