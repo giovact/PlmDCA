@@ -26,8 +26,8 @@ function plmdca_asym(Z::Array{T,2},W::Vector{Float64};
         decvar = DecVar{2}(fracdec, fracmax, ones(Bool, (N - 1) * q * q, N))
         DecimateAsym!(plmvar, plmalg, decvar)
     end
-    score, FN, Jtensor, htensor =  ComputeScore(Jmat, plmvar, min_separation)
-    return PlmOut(sdata(pslike), Jtensor, htensor, score)
+    score, FN, Jtensor, htensor, Jt1,Jt2 =  ComputeScore(Jmat, plmvar, min_separation)
+    return PlmOut(sdata(pslike), Jtensor, htensor, score,Jmat,Jt1,Jt2)
 
 end
 plmdca(Z,W;kwds...) = plmdca_asym(Z, W;kwds...)
@@ -253,5 +253,5 @@ function ComputeScore(Jmat::Array{Float64,2}, var::PlmVar, min_separation::Int)
 
     FN = compute_APC(Jtensor, N, q)
     score = compute_ranking(FN, min_separation)
-    return score, FN, Jplm, hplm
+    return score, FN, Jplm, hplm, Jtensor1,Jtensor2
 end
